@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1"
+	 id="svg5" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 595.3 841.9"
+	 style="enable-background:new 0 0 595.3 841.9;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+	.st1{font-family:'ArialNarrow-Bold';}
+	.st2{font-size:13px;}
+	.st3{fill:none;}
+	.st4{opacity:0.6512;fill:#797979;enable-background:new    ;}
+	.st5{opacity:0.2;fill:#C2130F;enable-background:new    ;}
+	.st6{font-size:25.3522px;}
+</style>
+<sodipodi:namedview  bordercolor="#666666" borderopacity="1.0" id="namedview7" inkscape:current-layer="layer1" inkscape:cx="333.11573" inkscape:cy="383.23048" inkscape:document-units="mm" inkscape:pagecheckerboard="0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:window-height="1023" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="1.0176644" pagecolor="#ffffff" showgrid="false">
+	</sodipodi:namedview>
+<image style="overflow:visible;enable-background:new    ;" width="501" height="628" id="image832" xlink:href="B6B4C8A8.png"  inkscape:export-filename="/user/sebert/home/Documents/paper_OSR/plots_model/individual_panels/Circuit_Scheme_colored.png" inkscape:export-xdpi="107.8" inkscape:export-ydpi="107.8" transform="matrix(0.6667 0 0 0.6667 41.9692 45.4767)">
+</image>
+<rect x="303.3" y="48.8" class="st0" width="65.9" height="65.9"/>
+<text transform="matrix(1 0 0 1 311.1522 63.4159)" class="st1 st2">Excitatory</text>
+<text transform="matrix(1 0 0 1 311.9323 85.8)" class="st1 st2">Inhibitory</text>
+<text transform="matrix(1 0 0 1 307.932 111.0504)" class="st1 st2">Glycinergic</text>
+<path id="path858" inkscape:export-filename="/user/sebert/home/Documents/paper_OSR/plots_model/individual_panels/Circuit_Scheme_colored.png" inkscape:transform-center-y="3.0448473" inkscape:transform-center-x="-0.099833266" sodipodi:r2="20.130592" inkscape:export-xdpi="107.8" inkscape:randomized="0" sodipodi:type="star" inkscape:export-ydpi="107.8" sodipodi:arg2="1.5870987" sodipodi:cy="155.36082" sodipodi:cx="58.767322" sodipodi:sides="3" sodipodi:r1="40.261185" inkscape:flatsided="false" sodipodi:arg1="0.53990111" inkscape:rounded="0" class="st3" d="
+	M44.2,114.7l30.1,0.5l30.1,0.5l-15.5,26.4l-15.5,26.4l-14.6-26.9L44.2,114.7z"/>
+<path id="path858-3" inkscape:export-filename="/user/sebert/home/Documents/paper_OSR/plots_model/individual_panels/Circuit_Scheme_colored.png" inkscape:transform-center-y="3.0448473" inkscape:transform-center-x="-0.099833266" sodipodi:r2="20.130592" inkscape:export-xdpi="107.8" inkscape:randomized="0" sodipodi:type="star" inkscape:export-ydpi="107.8" sodipodi:arg2="1.5870987" sodipodi:cy="155.36082" sodipodi:cx="58.767323" sodipodi:sides="3" sodipodi:r1="40.261185" inkscape:flatsided="false" sodipodi:arg1="0.53990111" inkscape:rounded="0" class="st3" d="
+	M113.1,115.2l30.1,0.5l30.1,0.5l-15.5,26.4L142.3,169l-14.6-27L113.1,115.2z"/>
+<path id="path858-3-6" inkscape:export-filename="/user/sebert/home/Documents/paper_OSR/plots_model/individual_panels/Circuit_Scheme_colored.png" inkscape:transform-center-y="3.0448473" inkscape:transform-center-x="-0.099833266" sodipodi:r2="20.130592" inkscape:export-xdpi="107.8" inkscape:randomized="0" sodipodi:type="star" inkscape:export-ydpi="107.8" sodipodi:arg2="1.5870987" sodipodi:cy="155.36082" sodipodi:cx="58.767323" sodipodi:sides="3" sodipodi:r1="40.261185" inkscape:flatsided="false" sodipodi:arg1="0.53990111" inkscape:rounded="0" class="st3" d="
+	M183,114.3l30.1,0.5l30.1,0.5l-15.5,26.4l-15.5,26.4l-14.6-26.9L183,114.3z"/>
+<path id="path1118" inkscape:export-filename="/user/sebert/home/Documents/paper_OSR/plots_model/individual_panels/Circuit_Scheme_colored.png" inkscape:export-xdpi="107.8" sodipodi:type="arc" inkscape:export-ydpi="107.8" sodipodi:cy="80.435585" sodipodi:cx="74.854973" sodipodi:arc-type="slice" sodipodi:end="3.8532335" sodipodi:ry="1.9786491" sodipodi:start="0" sodipodi:rx="1.9042321" class="st4" d="
+	M217.6,228c0,2.5-1.6,4.7-3.9,5.4c-2.3,0.7-4.8-0.3-6.1-2.3c-1.3-2.1-1.1-4.8,0.4-6.7l4.1,3.7L217.6,228z"/>
+<rect x="169.5" y="254.8" class="st0" width="107.5" height="63.1"/>
+<polygon class="st0" points="98.6,119 50.1,119 74.4,161 "/>
+<polygon class="st0" points="170.6,117.6 116.4,117.6 143.5,164.6 "/>
+<polygon class="st0" points="239.6,117.5 185.5,117.5 212.6,164.5 "/>
+<rect x="177.7" y="111.1" class="st5" width="69.7" height="125.4"/>
+<text transform="matrix(1 0 0 1 62.5566 142.0946)" class="st1 st6">E</text>
+<text transform="matrix(1 0 0 1 76.7822 128.0101)" class="st1 st2">ON</text>
+<text transform="matrix(1 0 0 1 137.0872 140.8256)" class="st1 st6">I</text>
+<text transform="matrix(1 0 0 1 144.3128 127.7411)" class="st1 st2">ON</text>
+<text transform="matrix(1 0 0 1 201.3645 140.5405)" class="st1 st6">I</text>
+<text transform="matrix(1 0 0 1 208.5901 127.456)" class="st1 st2">OFF</text>
+<text transform="matrix(1 0 0 1 208.8941 143.1)" class="st1 st2">Gly</text>
+<ellipse class="st0" cx="144.7" cy="288.3" rx="19.1" ry="16.9"/>
+<text transform="matrix(1 0 0 1 135.295 296.6289)" class="st1 st6">G</text>
+</svg>
