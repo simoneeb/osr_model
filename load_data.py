@@ -19,7 +19,7 @@ def get_euler_response(cell, experiment_name):
 
 #load  euler stim stimulus 
 def get_euler_stimulus(dt = 0.02):
-    stimeuler = pd.read_csv('/user/sebert/home/Documents/Experiments/OSR/StimulusDesgin/Euler_Baptiste/euler_luminance_profile.csv')
+    stimeuler = pd.read_csv('stimuli/chirp_luminance_profile.csv')
     euler = np.asarray(stimeuler['luminance'])
     euler = euler/euler.max()
     # euler = euler - euler.std()

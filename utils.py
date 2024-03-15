@@ -2,7 +2,7 @@ import numpy as np
 import pickle
 import os
 from matplotlib import pyplot as plt
-
+from nonlinearities import sig
 
         
 def slope_fun(x,s,i):
@@ -99,24 +99,39 @@ def calculate_VG_baseline(params, nV = False):
     theta_B = params['theta_B']
     nA1 = params['n_A1_star']
 
-    if nV is False : 
+    slope_on = params['slope_on']
+    slope_off = params['slope_off']
 
-        return wB * theta_B -wA1 * nA1 * theta_A1 - wA2 * theta_A2
+    threshold_on = params['threshold_on']
+    threshold_off = params['threshold_off']
 
-    if nV is True : 
+    max_val_on = params['max_val_on']
+    max_val_off = params['max_val_off']
 
-        return wB * theta_B -wA1 *  theta_A1 - wA2 * theta_A2
+    #if nV is False : 
+    
+    B_at_0 =  (sig(0,slope_on,threshold_on,max_val_on)-1)
+    A2_at_0 = (sig(0,slope_on,threshold_on,max_val_on)-1)
+    A1_at_0 = sig(0,slope_off,threshold_off,max_val_off)
+
+
+    return wB * theta_B * B_at_0 - wA1 *  theta_A1 * A1_at_0 - wA2 * theta_A2 * A2_at_0
+
+
+    # if nV is True : 
+
+    #     return wB * theta_B * B_at_0 - wA1 *  theta_A1 * A1_at_0 - wA2 * theta_A2 * A2_at_0
 
 
 
 def make_param_dict(params, nV = False):
 
     # calculate scale factors
-    params['SFB'] =  (1/params['tau_B'])  * params['scale_mV']              # [mV/s**2]
-    params['SFA1'] = (1/params['tau_A1']) * params['scale_mV']              # [mV/s**2]
-    params['SFA2']= (1/params['tau_A2']) * params['scale_mV']             # [mV/s**2]
+    params['SFB'] =  (1/params['tau_B'])  * params['scale_mV']              # [mV/s]
+    params['SFA1'] = (1/params['tau_A1']) * params['scale_mV']              # [mV/s]
+    params['SFA2']= (1/params['tau_A2']) * params['scale_mV']               # [mV/s]
     if 'tau_B2' in params.keys():
-        params['SFB2']= (1/params['tau_B2']) * params['scale_mV']             # [mV/s**2]
+        params['SFB2']= (1/params['tau_B2']) * params['scale_mV']             # [mV/s]
   
 
     #calculate n_A1_star

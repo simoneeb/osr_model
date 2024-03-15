@@ -1,0 +1,44 @@
+{
+    "params_model": {
+        "tau_B": 0.1,
+        "tau_A1": 0.08,
+        "tau_A2": 0.2,
+        "tau_G": 0.05,
+        "tau_VR": 0.1,
+        "tau_VR2": 0.2,
+        "w_B": 300.0,
+        "w_A1": 0,
+        "w_A2": 0,
+        "theta_A1": 0,
+        "theta_A2": -0.05,
+        "k_rec": 1.0,
+        "k_rel": 80.3,
+        "beta": 0.0,
+        "scale_mV": 0.05,
+        "slope": 2200,
+        "threshold": 0,
+        "slope_on": 1,
+        "threshold_on": 0,
+        "max_val_on": 2,
+        "SFB": 0.5,
+        "SFA1": 0.625,
+        "SFA2": 1.1,
+        "n_A1_star": 1.0,
+        "theta_B": -0.0
+    },
+    "model_functions": {
+        "linear_filter": "<function filter_biphasic_norm at 0x121cba3e0>",
+        "system": "<function IPL_occupancy_bipolar at 0x121cbaa20>",
+        "nonlinearity": "<function N at 0x121cb9760>"
+    },
+    "hyperparameter": {
+        "dt": 0.002,
+        "filterlength": 1,
+        "occupancy": "dynamic",
+        "polarities": [
+            "ON",
+            "OFF",
+            "ON"
+        ]
+    }
+}

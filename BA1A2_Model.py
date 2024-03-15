@@ -71,7 +71,7 @@ class BA1A2_Model(object):
                 time,
                 stimulus_name,
                 VB0 = 0, VA10 = 0,VA20 = 0,VG0 = 0,nA10 = 1,
-                print_steps = True,
+                print_steps = False,
                 ):
 
         
@@ -119,7 +119,6 @@ class BA1A2_Model(object):
 
         else:
             stim = stim
-            print('no stimulus transformation')
 
 
         simt = time[-1]
@@ -129,67 +128,66 @@ class BA1A2_Model(object):
         tau_VR = self.params['tau_VR']
 
         # calculate scaling factors to keep intermediate voltage responses at similar amplitudes
-        SF_B = self.params['SFB']           # [mV/s**2]
-        SF_A1 = self.params['SFA1']              # [mV/s**2]
-        SF_A2 = self.params['SFA2']             # [mV/s**2]
+        SF_B = self.params['SFB']           # [mV/s]
+        SF_A1 = self.params['SFA1']              # [mV/s]
+        SF_A2 = self.params['SFA2']             # [mV/s]
 
 
         #make timeline for filter with the same dt
         filtertime = np.arange(0,self.filterlength,self.dt)
 
 
-
         if self.convolution_type == 'same': 
 
-            if self.polarities[0] is 'ON':
+            if self.polarities[0] == 'ON':
                 filter_B = self.linear_filter(filtertime,tau_B)
 
-            if self.polarities[0] is 'OFF':
+            if self.polarities[0] == 'OFF':
                 filter_B = -1 * self.linear_filter(filtertime,tau_B)
 
 
 
-            if self.polarities[1] is 'ON':
+            if self.polarities[1] == 'ON':
                 filter_A1 = self.linear_filter(filtertime,tau_A1)
                 #filter_A1 = self.linear_filter(filtertime,0.01)
 
-            if self.polarities[1] is 'OFF':
+            if self.polarities[1] == 'OFF':
                 filter_A1 = -1 * self.linear_filter(filtertime,tau_A1)
                 #filter_A1 = -1 * self.linear_filter(filtertime,0.01)
 
 
-            if self.polarities[2] is 'ON':
+            if self.polarities[2] == 'ON':
                 filter_A2 = self.linear_filter(filtertime,tau_A2)
 
 
-            if self.polarities[2] is 'OFF':
+            if self.polarities[2] == 'OFF':
                 filter_A2 = -1 * self.linear_filter(filtertime,tau_A2)
 
 
 
         if self.convolution_type == 'VR': 
 
-            if self.polarities[0] is 'ON':
+            if self.polarities[0] == 'ON':
                 filter_B = self.linear_filter(filtertime,tau_VR)
 
-            if self.polarities[0] is 'OFF':
+            if self.polarities[0] == 'OFF':
                 filter_B = -1* self.linear_filter(filtertime,tau_VR)
 
 
 
-            if self.polarities[1] is 'ON':
+            if self.polarities[1] == 'ON':
                 filter_A1 = self.linear_filter(filtertime,tau_VR)
 
-            if self.polarities[1] is 'OFF':
+            if self.polarities[1] == 'OFF':
                 filter_A1 =-1* self.linear_filter(filtertime,tau_VR)
 
 
 
-            if self.polarities[2] is 'ON':
+            if self.polarities[2] == 'ON':
                 filter_A2 = self.linear_filter(filtertime,tau_VR)
 
 
-            if self.polarities[2] is 'OFF':
+            if self.polarities[2] == 'OFF':
                 filter_A2 = -1* self.linear_filter(filtertime,tau_VR)
 
 
@@ -288,25 +286,22 @@ class BA1A2_Model(object):
         VG_baseline = calculate_VG_baseline(self.params,self.nV)
         err = 0.01
 
-        if print_steps == True: 
 
-            if sol.y[-1][-1] <= VG_baseline-err or sol.y[-1][-1] >= VG_baseline+err:
-                print("!!!!! VG baseline does not match")
+        # if sol.y[-1][-1] <= VG_baseline-err or sol.y[-1][-1] >= VG_baseline+err:
+        #     print("!!!!! VG baseline does not match")
 
-            if sol.y[-1][-1] <= 0-err or sol.y[-1][-1] >= 0+err:
-                print(f"!!!!! simulation VG baseline is {sol.y[-1][-1]}")
+        # if sol.y[-1][-1] <= 0-err or sol.y[-1][-1] >= 0+err:
+        #     print(f"!!!!! simulation VG baseline is {sol.y[-1][-1]}")
 
-            if VG_baseline <= 0-err or VG_baseline >= 0+err:
-                print(f"!!!!! calculated VG baseline is {VG_baseline}")
+        # if VG_baseline <= 0-err or VG_baseline >= 0+err:
+        #     print(f"!!!!! calculated VG baseline is {VG_baseline}")
 
+        if self.occupancy == 'dynamic':
+            n_eq = calculate_n_eq(self.params)
 
-
-            if self.occupancy == 'dynamic':
-                n_eq = calculate_n_eq(self.params)
-
-                if sol.y[-2][-1] <= n_eq-err or  sol.y[-2][-1] >= n_eq+err:
-                    print(f' !!!!! occupancy equilibrium in calculation and simulation dont match')
-                    print(f'{n_eq} vs {sol.y[-2][-1]}')
+            if sol.y[-2][-1] <= n_eq-err or  sol.y[-2][-1] >= n_eq+err:
+                print(f' !!!!! occupancy equilibrium in calculation and simulation dont match')
+                print(f'{n_eq} vs {sol.y[-2][-1]}')
 
         
         out = { 'name': stimulus_name,
@@ -324,28 +319,38 @@ class BA1A2_Model(object):
 
     def  plot_kernels(self):
 
+        filtertime = np.arange(0,self.filterlength,self.dt)
 
         if self.convolution_type == 'same' : 
             tau_B = self.params['tau_B']
             tau_A1 = self.params['tau_A1']
             tau_A2 = self.params['tau_A2']
 
-        if self.convolution_type == 'VR':
-            tau_B = self.params['tau_VR']
-            tau_A1 = self.params['tau_VR']
-            tau_A2 = self.params['tau_VR']
-
         #make timeline for filter with the same dt
-        filtertime = np.arange(0,self.filterlength,self.dt)
 
-        fig = plt.figure()
-        plt.plot(filtertime,self.linear_filter(filtertime,tau_B), color = 'g', label = "kernel B")
-        plt.plot(filtertime,self.linear_filter(filtertime,tau_A1), color = 'm', label = "kernel A1")
-        plt.plot(filtertime,self.linear_filter(filtertime,tau_A2), color = 'r', label = "kernel A2")
-        plt.legend()
-        plt.title( "Filter shapes for OPL input")
-        plt.show()
-        return fig
+            fig = plt.figure()
+            plt.plot(filtertime,self.linear_filter(filtertime,tau_B), color = 'g', label = "kernel B")
+            plt.plot(filtertime,self.linear_filter(filtertime,tau_A1), color = 'm', label = "kernel A1")
+            plt.plot(filtertime,self.linear_filter(filtertime,tau_A2), color = 'r', label = "kernel A2")
+            plt.legend()
+            plt.xlabel('time [s]')
+
+            plt.title( "Filter shapes for OPL input")
+            plt.show()
+            return fig
+    
+
+        if self.convolution_type == 'VR':
+            tau_VR = self.params['tau_VR']
+            
+            fig = plt.figure()
+            plt.plot(filtertime,self.linear_filter(filtertime,tau_VR), color = 'k')
+            plt.xlabel('time [s]')
+            plt.title( "OPL kernel")
+          
+            plt.show()
+            return fig
+
 
 
 
@@ -361,7 +366,9 @@ class BA1A2_Model(object):
         plt.plot(range,si, color = 'k')
       
         plt.legend()
-        plt.title( "input nonlinearity")
+        plt.title( "nonlinearities")
+        plt.xlabel('input')
+        plt.ylabel('output')
         plt.show()
         return fig
     
@@ -381,6 +388,9 @@ class BA1A2_Model(object):
       
         ax[0].set_title( " nonlinearity ON")
         ax[1].set_title( " nonlinearity OFF")
+        ax[0].set_xlabel('input')
+        ax[1].set_xlabel('input')
+        ax[0].set_ylabel('output')
         plt.show()
         return fig
 
@@ -395,68 +405,126 @@ class BA1A2_Model(object):
         time = simulation['time']
         sol = simulation['sol']
         OPL_inputs = simulation['OPL_inputs']
-
-        fig = plt.figure(figsize = (10,5))
-
-
-        ax0 = fig.add_subplot(511)
-        ax0.plot(time,stimulus)
-
-        ax1 = fig.add_subplot(512)
-        ax1.plot(time,[OPL_inputs['FB'](t) for t in time], color = 'g', linestyle = '--',label = 'FB(t)')
-        ax1.plot(time,[OPL_inputs['FA1'](t) for t in time], color = 'r',linestyle = '--',label = 'FA1(t)')
-        #ax1.plot(time,[OPL_inputs['FA2'](t) for t in time], color = 'orange',linestyle = '--',label = 'FA2(t)')
+        OPL_inputs_raw = simulation['OPL_inputs_raw']
+        OPL_inputs_rec = simulation['OPL_inputs_rec']
 
 
 
-        ax2 = fig.add_subplot(513)
-        ax2.plot(time,sol.y[0],color = 'g', label = 'VB')
-        ax2.plot(time,sol.y[1],color = 'r', label = 'VA1')
-        ax2.plot(time,sol.y[2],color = 'orange', label = 'VA2')
+        if self.convolution_type =='same':
+            fig = plt.figure(figsize = (10,5))
 
+            ax0 = fig.add_subplot(511)
+            ax0.plot(time,stimulus)
 
-        ax22 = fig.add_subplot(514)
-        ax3 = fig.add_subplot(515)
-
-        if self.occupancy == 'fixed':
-            ax22.axhline(self.params['n_A1_star'], color = 'c', label = 'nA1')
-            ax3.plot(time,sol.y[4], color = 'k', label = 'VG')
-
-        if self.occupancy == 'dynamic':
-            ax22.plot(time,sol.y[3],color = 'c', label = 'nA1')
-            #ax3.scatter(filtertime,time_rf_smooth, label = 'STA Datapoints')
-            ax3.plot(time,sol.y[4], color = 'k', label = 'VG')
+            ax1 = fig.add_subplot(512)
+            ax1.plot(time,[OPL_inputs['FB'](t) for t in time], color = 'g', linestyle = '--',label = 'FB(t)')
+            ax1.plot(time,[OPL_inputs['FA1'](t) for t in time], color = 'r',linestyle = '--',label = 'FA1(t)')
+            #ax1.plot(time,[OPL_inputs['FA2'](t) for t in time], color = 'orange',linestyle = '--',label = 'FA2(t)')
 
 
 
+            ax2 = fig.add_subplot(513)
+            ax2.plot(time,sol.y[0],color = 'g', label = 'VB')
+            ax2.plot(time,sol.y[1],color = 'r', label = 'VA1')
+            ax2.plot(time,sol.y[2],color = 'orange', label = 'VA2')
 
 
-        ax0.set_title('Stimulus')
-        ax0.set_xlim(xlims)
+            ax22 = fig.add_subplot(514)
+            ax3 = fig.add_subplot(515)
 
-        ax1.set_title('OPL Filter')
-        ax1.set_xlim(xlims)
+            if self.occupancy == 'fixed':
+                ax22.axhline(self.params['n_A1_star'], color = 'c', label = 'nA1')
+                ax3.plot(time,sol.y[4], color = 'k', label = 'VG')
 
-
-
-        ax2.set_title('Pathway Responses ')
-        ax2.set_xlim(xlims)
-
-
-        ax2.set_title('Occupancy')
-        ax22.set_xlim(xlims)
+            if self.occupancy == 'dynamic':
+                ax22.plot(time,sol.y[3],color = 'c', label = 'nA1')
+                #ax3.scatter(filtertime,time_rf_smooth, label = 'STA Datapoints')
+                ax3.plot(time,sol.y[4], color = 'k', label = 'VG')
 
 
+            ax0.set_title('Stimulus')
+            ax0.set_xlim(xlims)
+
+            ax1.set_title('OPL Filter')
+            ax1.set_xlim(xlims)
+
+            ax2.set_title('Pathway Responses ')
+            ax2.set_xlim(xlims)
+
+            ax2.set_title('Occupancy')
+            ax22.set_xlim(xlims)
+
+            ax3.set_xlabel('time [s]')
+            ax3.set_title('VG response')
+            ax3.set_xlim(xlims)
 
 
-        ax3.set_xlabel('time [s]')
-        ax3.set_title('VG response')
-        ax3.set_xlim(xlims)
+            fig.legend()
+            fig.suptitle(f'{name},{self.occupancy}')
+            plt.show()
 
 
-        fig.legend()
-        fig.suptitle(f'{name},{self.occupancy}')
-        plt.show()
+        if self.convolution_type == 'VR':
+
+            fig = plt.figure(figsize = (10,5))
+
+            ax0 = fig.add_subplot(511)
+            ax0.plot(time,stimulus)
+
+            ax1 = fig.add_subplot(512)
+            ax1.plot(time,OPL_inputs_raw['FB'], color = 'g', linestyle = '--',label = r'F_{B}(t)')
+            ax1.plot(time,OPL_inputs_raw['FA1'], color = 'r',linestyle = '--',label = r'F_{A1}(t)')
+            ax1.plot(time,OPL_inputs_raw['FA2'], color = 'orange',linestyle = '--',label = r'F_{A2}(t)')
+            ax1.legend()
+
+            ax11 = fig.add_subplot(512)
+            ax11.plot(time,OPL_inputs_rec['FB'], color = 'g', linestyle = '--',label = r'\sigma_{B}(t)')
+            ax11.plot(time,OPL_inputs_rec['FA1'], color = 'r',linestyle = '--',label = r'\sigma_{A1}(t)')
+            ax11.plot(time,OPL_inputs_rec['FA2'], color = 'orange',linestyle = '--',label = r'\sigma_{A2}(t)')
+            ax11.legend()
+
+
+            ax2 = fig.add_subplot(513)
+            ax2.plot(time,sol.y[0],color = 'g', label = 'VB')
+            ax2.plot(time,sol.y[1],color = 'r', label = 'VA1')
+            ax2.plot(time,sol.y[2],color = 'orange', label = 'VA2')
+            ax2.legend()
+
+            ax22 = fig.add_subplot(514)
+            ax3 = fig.add_subplot(515)
+
+            if self.occupancy == 'fixed':
+                ax22.axhline(self.params['n_A1_star'], color = 'c', label = 'n')
+                ax3.plot(time,sol.y[4], color = 'k', label = 'VG')
+
+            if self.occupancy == 'dynamic':
+                ax22.plot(time,sol.y[3],color = 'c', label = 'n')
+                #ax3.scatter(filtertime,time_rf_smooth, label = 'STA Datapoints')
+                ax3.plot(time,sol.y[4], color = 'k', label = 'VG')
+
+
+            ax0.set_title('Stimulus')
+            ax0.set_xlim(xlims)
+
+            ax1.set_title('OPL Filter')
+            ax1.set_xlim(xlims)
+
+            ax2.set_title('Pathway Responses ')
+            ax2.set_xlim(xlims)
+
+            ax2.set_title('Occupancy')
+            ax22.set_xlim(xlims)
+
+            ax3.set_xlabel('time [s]')
+            ax3.set_title('VG response')
+            ax3.set_xlim(xlims)
+
+            ax3.set_xlabel('time [s]')
+
+            fig.legend()
+            fig.suptitle(f'{name},{self.occupancy}')
+            plt.show()
+                
 
         return fig 
 

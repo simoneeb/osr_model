@@ -22,7 +22,7 @@ def simulate_OSR(Model,osrparams,hyperparams,params,
                 flashpolarity = -1.0,
                 flashpolarities = [False],
                 modified_weights = [False],
-                print_steps = True):
+                print_steps = False):
 
     frequencies = osrparams['frequencies']
     periods = osrparams['periods']
