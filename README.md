@@ -14,7 +14,7 @@ git clone https://github.com/simoneeb/osr_model.git
 
 create environment
 ```
-conda env create -f osr_env.yml
+conda env create --name osr_env --file osr_env.yml
 ```
 
 # Run simulation
