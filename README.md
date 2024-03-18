@@ -17,6 +17,8 @@ create environment
 conda env create --name osr_env --file osr_env.yml
 ```
 
+runs on Python 3.9.16
+
 # Run simulation
 
 run the simulation with the model
